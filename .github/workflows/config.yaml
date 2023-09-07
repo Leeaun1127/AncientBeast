@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build and Configure
 
 on: [push, pull_request]
 
@@ -22,3 +22,26 @@ jobs:
       with:
         name: deploy
         path: deploy
+
+        
+  codeanalysis:
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps: 
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        path: /home/runner/work/AncientBeast/AncientBeast
+        
+
+    - run: npm ci
+    - name: Static Code Analysis (ESLint)
+      run: npm run lint > eslint-report.log
+    - name: Static Code Analysis (ESLint)
+      run: cat eslint-report.log
+    - name: Archive ESLint Report
+      uses: actions/upload-artifact@v2
+      with:
+       name: eslint-report
+       path: eslint-report.log
