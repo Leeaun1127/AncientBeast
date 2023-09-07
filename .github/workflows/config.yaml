@@ -28,6 +28,7 @@ jobs:
     needs: build
 
     steps: 
-      - run: echo "Hello"
+      - name: Static Code Analysis (ESLint)
+        run: npm run lint
    
         
