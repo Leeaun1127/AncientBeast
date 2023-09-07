@@ -28,7 +28,12 @@ jobs:
     needs: build
 
     steps: 
-      - name: Static Code Analysis (ESLint)
-        run: npm run lint
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        path: /home/runner/work/AncientBeast/AncientBeast
+        
+    - name: Static Code Analysis (ESLint)
+      run: npm run lint
    
         
