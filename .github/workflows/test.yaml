@@ -28,11 +28,25 @@ jobs:
   test:
     runs-on: ubuntu-22.04
 
+    needs: build  # This ensures that the "test" job runs after the "build" job is successful.
+
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  
+    
     - name: Use Node.js 18
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v2  
       with:
         node-version: 18
-    - run: npm ci
-    - name: run tests
-      run: test
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint code
+      run: npm run lint  
+
+    - name: Build for testing
+      run: npm run build:dev  .
+
+    - name: Run tests
+      run: npm test
