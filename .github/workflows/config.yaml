@@ -77,3 +77,10 @@ jobs:
       with:
         name: coverage-report 
         path: coverage-report.log
+
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+    - name: Deploy completed
+      run: echo "Deploy completed"
