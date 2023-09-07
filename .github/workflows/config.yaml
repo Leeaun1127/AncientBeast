@@ -22,3 +22,19 @@ jobs:
       with:
         name: deploy
         path: deploy
+        
+  codeanalysis:
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps: 
+
+    - name: Static Code Analysis (ESLint)
+      run: npm run lint
+
+    - name: Archive ESLint Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: eslint-report
+        path: eslint-report.log
+        
